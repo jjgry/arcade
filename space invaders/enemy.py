@@ -7,6 +7,7 @@ class Enemy(LivingEntity):
     def __init__(self, pos_x, pos_y, delay_between_shots):
         """ Enemies are entities with one life """
         super().__init__(pos_x, pos_y, 1, delay_between_shots)
+        
 
     def fire_projectile(self):
         """ return a Projectile object travelling downwards """
