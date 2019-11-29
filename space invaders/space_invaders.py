@@ -5,13 +5,16 @@ from projectile import Projectile
 
 WINDOW_WIDTH = 500
 WINDOW_HEIGHT = 500
+DELAY_BETWEEN_PLAYER_SHOTS = 30
 
 def main():
     pygame.init()
     win = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     pygame.display.set_caption("Space Invaders") 
 
-    player = Player(250, 450)
+    player = Player(250, 450, DELAY_BETWEEN_PLAYER_SHOTS)
+    enemy = Enemy(250, 200, 200)
+    projectiles = []
 
     run = True
     while run:    
@@ -24,15 +27,21 @@ def main():
         keys = pygame.key.get_pressed()
 
         # update everything
-
-        player.move(keys, WINDOW_WIDTH)
-
+        player.move(keys, WINDOW_WIDTH, projectiles)
+        enemy.move(keys, WINDOW_WIDTH, projectiles)
+        
+        for projectile in projectiles:
+            projectile.move()
 
 
         # draw everything
-
         win.fill((0, 0, 0))
+
         player.draw(win)
+        enemy.draw(win)
+
+        for projectile in projectiles:
+            projectile.draw(win)
 
 
         pygame.display.update()
@@ -40,4 +49,4 @@ def main():
     pygame.quit()
 
 if __name__ == "__main__":
-    main()
+    main() 

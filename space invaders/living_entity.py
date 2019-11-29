@@ -5,12 +5,14 @@ class LivingEntity:
     HEIGHT = 20
     WIDTH = 20
 
-    def __init__(self, pos_x, pos_y, lives, color=(255, 255, 255)):
+    def __init__(self, pos_x, pos_y, lives, delay_between_shots, color=(255, 255, 255)):
         self.alive = True
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.lives = lives
+        self.delay_between_shots = delay_between_shots
         self.color = color
+        self.count = 0
 
     def draw(self, win):
         """ Add an entity surface onto win, centred on its position """
@@ -28,9 +30,25 @@ class LivingEntity:
         """Called when subclass wants for fire a projectile """
         raise NotImplementedError
 
-    def hit(self):
-        """ Called when an entiry is hit with a projectile """
-        self.lives -= 1
-        if self.lives <= 0:
-            self.alive = False
+    def check_if_hit(self, projectiles):
+        """ Checks whether the entity has been hit by any of the projectiles, 
+        updating state as necessary. Being hit by multiple projectiles will 
+        have the same effect as being hit by one.
 
+        Returns true of entity was hit
+        """
+        hit = False
+        if self.alive: # only check for collisions if entity is still alive
+
+            for projectile in projectiles:
+                if ((self.pos_x <= projectile.pos_x <= self.pos_x + self.WIDTH)
+                        and (self.pos_y <= projectile.pos_y <= self.pos_y + self.HEIGHT)):
+                    projectiles.remove(projectile)
+                    hit = True
+
+            if hit:
+                self.lives -= 1
+                if self.lives <= 0:
+                    self.alive = False
+        
+        return hit
