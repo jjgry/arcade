@@ -14,7 +14,7 @@ def main():
     p1_score = 0
     p2_score = 0
 
-    PLAYERER_WIDTH = 10
+    PLAYER_WIDTH = 10
     PLAYER_HEIGHT = 40
     PLAYER_VEL = 4
 
@@ -28,7 +28,7 @@ def main():
 
     run = True
     while run:
-        pygame.time.delay(10) # pause for 100ms
+        pygame.time.delay(10) # pause for 10ms (~100fps)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -87,13 +87,13 @@ def main():
             pygame.draw.line(win, (255, 255, 255), (250, i*(dash_length) + 10), (250, i*(dash_length) + dash_length//2 + 10), 2)
 
         pygame.draw.rect(win, (255, 255, 255), (int(ball_pos[0] - BALL_SIZE/2), int(ball_pos[1] - BALL_SIZE/2), BALL_SIZE, BALL_SIZE))
-        pygame.draw.rect(win, (255, 255, 255), (30, p1_pos, PLAYERER_WIDTH, PLAYER_HEIGHT))
-        pygame.draw.rect(win, (255, 255, 255), (460, p2_pos, PLAYERER_WIDTH, PLAYER_HEIGHT))
+        pygame.draw.rect(win, (255, 255, 255), (30, p1_pos, PLAYER_WIDTH, PLAYER_HEIGHT))
+        pygame.draw.rect(win, (255, 255, 255), (460, p2_pos, PLAYER_WIDTH, PLAYER_HEIGHT))
 
         p1_text = font.render(str(p1_score), True, (255, 255, 255))
         p2_text = font.render(str(p2_score), True, (255, 255, 255))
-        win.blit(p1_text, (200 - p1_text.get_rect().width/2, 20))
-        win.blit(p2_text, (300 - p2_text.get_rect().width/2, 20))
+        win.blit(p1_text, (int(200 - p1_text.get_rect().width/2), 20))
+        win.blit(p2_text, (int(300 - p2_text.get_rect().width/2), 20))
 
         pygame.display.update()
         
