@@ -1,32 +1,12 @@
 import pygame
 import math
 
-def print_scores(p1_score, p2_score):
-    print("P1: {:d}   P2: {:d}".format(p1_score, p2_score))
-
-def draw_screen(win, p1_pos, p2_pos, player_width, player_height, ball_pos, ball_size, p1_score, p2_score):
-    win.fill((0, 0, 0))
-
-    dashes = 25
-    dash_length = (500//dashes)
-    for i in range(dashes):
-        pygame.draw.line(win, (255, 255, 255), (250, i*(dash_length) + 10), (250, i*(dash_length) + dash_length//2 + 10), 2)
-
-    # still need to draw score
-
-    pygame.draw.rect(win, (255, 255, 255), (int(ball_pos[0] - ball_size/2), int(ball_pos[1] - ball_size/2), ball_size, ball_size))
-    pygame.draw.rect(win, (255, 255, 255), (30, p1_pos, player_width, player_height))
-    pygame.draw.rect(win, (255, 255, 255), (460, p2_pos, player_width, player_height))
-
-    pygame.display.update()
-
-
 def main():
     pygame.init()
-
     win = pygame.display.set_mode((500, 500))
-
     pygame.display.set_caption("Pong") 
+
+    font = pygame.font.SysFont("Courier New Bold", 60)
 
     p1_pos = 250
     p2_pos = 250
@@ -92,16 +72,31 @@ def main():
             ball_vx *= -1
             ball_vy = 0
             p2_score += 1
-            print_scores(p1_score, p2_score)
         elif (ball_pos[0] >= 499):
             ball_pos = (250, 250)
             ball_vx *= -1
             ball_vy = 0
             p1_score += 1
-            print_scores(p1_score, p2_score)
 
-        draw_screen(win, p1_pos, p2_pos, PLAYERER_WIDTH, PLAYER_HEIGHT, ball_pos, BALL_SIZE, p1_score, p2_score)
-    
+        # draw screen
+        win.fill((0, 0, 0))
+        dashes = 25
+        dash_length = (500//dashes)
+
+        for i in range(dashes):
+            pygame.draw.line(win, (255, 255, 255), (250, i*(dash_length) + 10), (250, i*(dash_length) + dash_length//2 + 10), 2)
+
+        pygame.draw.rect(win, (255, 255, 255), (int(ball_pos[0] - BALL_SIZE/2), int(ball_pos[1] - BALL_SIZE/2), BALL_SIZE, BALL_SIZE))
+        pygame.draw.rect(win, (255, 255, 255), (30, p1_pos, PLAYERER_WIDTH, PLAYER_HEIGHT))
+        pygame.draw.rect(win, (255, 255, 255), (460, p2_pos, PLAYERER_WIDTH, PLAYER_HEIGHT))
+
+        p1_text = font.render(str(p1_score), True, (255, 255, 255))
+        p2_text = font.render(str(p2_score), True, (255, 255, 255))
+        win.blit(p1_text, (200 - p1_text.get_rect().width/2, 20))
+        win.blit(p2_text, (300 - p2_text.get_rect().width/2, 20))
+
+        pygame.display.update()
+        
     pygame.quit()
 
 
