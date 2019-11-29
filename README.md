@@ -8,7 +8,9 @@ This is my attempt to become more familiar with Python3. I have been using pygam
 
 My version of Pong (trademark held by [Atari Interactive Inc.](https://www.atari.com/)) currently consists of one `pong.py` script which can be executed to run the game. The game is designed for two players. Player 1 can operate their paddle using the `W` and `S` keys, whilst player 2 can do so with the `UP ARROW` and `DOWN ARROW` keys.
 
-![Visual demonstration of the pong code](/pong/pong_demo.gif)
+<p align="center">
+  <img width="300" height="300" src="/pong/pong_demo.gif">
+</p>
 
 ## space invaders
 
