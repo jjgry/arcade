@@ -53,13 +53,16 @@ def main():
             ball_vy = -ball_vy
         
         # ball bounces off players
-        if   ( 30 <= ball_pos[0] <=  40) and (p1_pos <= ball_pos[1] <= p1_pos + PLAYER_HEIGHT):
+        if  ((30 <= ball_pos[0] <=  40) 
+                and (p1_pos <= ball_pos[1] <= p1_pos + PLAYER_HEIGHT)):
             relative_intersect = (p1_pos + PLAYER_HEIGHT/2) - ball_pos[1]
             normalised_relative_intersect = relative_intersect / (PLAYER_HEIGHT / 2)
             bounce_angle = normalised_relative_intersect * MAX_BOUNCE_ANGLE
             ball_vx =   BALL_SPEED * math.cos(bounce_angle)
             ball_vy = - BALL_SPEED * math.sin(bounce_angle)
-        elif (460 <= ball_pos[0] <= 470) and (p2_pos <= ball_pos[1] <= p2_pos + PLAYER_HEIGHT):
+            
+        elif (460 <= ball_pos[0] <= 470 
+                and (p2_pos <= ball_pos[1] <= p2_pos + PLAYER_HEIGHT)):
             relative_intersect = (p2_pos + PLAYER_HEIGHT/2) - ball_pos[1]
             normalised_relative_intersect = relative_intersect / (PLAYER_HEIGHT / 2)
             bounce_angle = normalised_relative_intersect * MAX_BOUNCE_ANGLE
@@ -84,11 +87,29 @@ def main():
         dash_length = (500//dashes)
 
         for i in range(dashes):
-            pygame.draw.line(win, (255, 255, 255), (250, i*(dash_length) + 10), (250, i*(dash_length) + dash_length//2 + 10), 2)
+            pygame.draw.line(
+                win, 
+                (255, 255, 255), 
+                (250, i*(dash_length) + 10), 
+                (250, i*(dash_length) + dash_length//2 + 10), 
+                2)
 
-        pygame.draw.rect(win, (255, 255, 255), (int(ball_pos[0] - BALL_SIZE/2), int(ball_pos[1] - BALL_SIZE/2), BALL_SIZE, BALL_SIZE))
-        pygame.draw.rect(win, (255, 255, 255), (30, p1_pos, PLAYER_WIDTH, PLAYER_HEIGHT))
-        pygame.draw.rect(win, (255, 255, 255), (460, p2_pos, PLAYER_WIDTH, PLAYER_HEIGHT))
+        pygame.draw.rect(
+            win, 
+            (255, 255, 255), 
+            (int(ball_pos[0] - BALL_SIZE/2), 
+                int(ball_pos[1] - BALL_SIZE/2), 
+                BALL_SIZE, 
+                BALL_SIZE)
+            )
+        pygame.draw.rect(
+            win, 
+            (255, 255, 255), 
+            (30, p1_pos, PLAYER_WIDTH, PLAYER_HEIGHT))
+        pygame.draw.rect(
+            win, 
+            (255, 255, 255), 
+            (460, p2_pos, PLAYER_WIDTH, PLAYER_HEIGHT))
 
         p1_text = font.render(str(p1_score), True, (255, 255, 255))
         p2_text = font.render(str(p2_score), True, (255, 255, 255))
