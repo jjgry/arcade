@@ -3,76 +3,54 @@ from enemy import Enemy
 from player import Player
 from projectile import Projectile
 from block import Block
+from wave import Wave
 
 WINDOW_WIDTH = 500
 WINDOW_HEIGHT = 500
 
-BLOCK_WIDTH = 20
-BLOCK_HEIGHT = 20
-BLOCK_COLOR = (255, 120, 120)
-
-ENEMY_WIDTH = 20
-ENEMY_HEIGHT = 20
-ENEMY_LIVES = 1
-ENEMY_COLOR = (255, 255, 255)
-ENEMY_DELAY_BETWEEN_SHOTS = 400
-
-PLAYER_WIDTH = 20
-PLAYER_HEIGHT = 20
-PLAYER_VELOCITY = 3
-PLAYER_LIVES = 3
-PLAYER_COLOR = (255, 255, 255)
-PLAYER_DELAY_BETWEEN_SHOTS = 40
+BLOCKS_SCREEN_POS = 350
+BLOCK_STRUCTURE = [
+        [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], 
+        [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], 
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0], 
+        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], 
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1], 
+        [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1], 
+    ]
 
 
 def get_enemies():
     enemies = [
-        Enemy(
-            250,
-            200,
-            ENEMY_WIDTH,
-            ENEMY_HEIGHT,
-            ENEMY_LIVES,
-            ENEMY_COLOR,
-            ENEMY_DELAY_BETWEEN_SHOTS),
-        Enemy(
-            300,
-            200,
-            ENEMY_WIDTH,
-            ENEMY_HEIGHT,
-            ENEMY_LIVES,
-            ENEMY_COLOR,
-            ENEMY_DELAY_BETWEEN_SHOTS)]
-    print(len(enemies))
+        Enemy(250, 200), 
+        Enemy(300, 200)]
     return enemies
 
 
 def get_blocks():
     blocks = []
-    num_blocks = int(WINDOW_WIDTH / 20) - 1
-    for i in range(num_blocks):
-        blocks.append(Block(
-            (i+1)*BLOCK_WIDTH,
-            350,
-            BLOCK_WIDTH,
-            BLOCK_HEIGHT,
-            BLOCK_COLOR))
+    NUM_DEFENCES = 4
+    spacing = 120
+    total_width = (NUM_DEFENCES - 1) * spacing + len(BLOCK_STRUCTURE[0]) * Block.WIDTH
+    left_offset = (WINDOW_WIDTH - total_width) / 2
+    for i in range(NUM_DEFENCES):
+        # draw one defence
+        for y in range(len(BLOCK_STRUCTURE)):
+            for x in range(len(BLOCK_STRUCTURE[0])):
+                if BLOCK_STRUCTURE[y][x] == 1:
+                    blocks.append(Block(
+                        left_offset + spacing*i + x*Block.WIDTH, 
+                        y*Block.HEIGHT + BLOCKS_SCREEN_POS))
     return blocks
-
-
-def update(keys, player, enemies, blocks, projectiles):
-    player.update(keys, WINDOW_WIDTH, projectiles)
-    Enemy.update_all(enemies, projectiles)
-    Block.update_all(blocks, projectiles)
-    Projectile.update_all(projectiles, WINDOW_HEIGHT)
-
-
-def draw_entities(win, player, enemies, blocks, projectiles):
-    win.fill((0, 0, 0))
-    player.draw(win)
-    Enemy.draw_all(win, enemies)
-    Block.draw_all(win, blocks)
-    Projectile.draw_all(win, projectiles)
 
 
 def main():
@@ -83,22 +61,15 @@ def main():
     pygame.font.init()
     font = pygame.font.Font(pygame.font.get_default_font(), 20)
 
-    player = Player(
-        250,
-        450,
-        PLAYER_WIDTH,
-        PLAYER_HEIGHT,
-        PLAYER_VELOCITY,
-        PLAYER_LIVES,
-        PLAYER_COLOR,
-        PLAYER_DELAY_BETWEEN_SHOTS)
+    player = Player(250, 450)
     enemies = get_enemies()
     blocks = get_blocks()
     projectiles = []
+    wave = Wave(blocks, enemies, player, projectiles, WINDOW_WIDTH, WINDOW_HEIGHT)
 
     run = True
     while run:
-        pygame.time.delay(10)  # pause for 10ms (~100fps)
+        pygame.time.delay(3)  # pause for some number of ms
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -107,14 +78,16 @@ def main():
         keys = pygame.key.get_pressed()
 
         # update everything
-        update(keys, player, enemies, blocks, projectiles)
+        wave.update(keys)
 
         # draw everything
-        draw_entities(win, player, enemies, blocks, projectiles)
+        win.fill((0, 0, 0))
+        wave.draw(win)
         lives_text = font.render(
             "Lives: " + str(player.lives), True, (255, 255, 255))
         win.blit(lives_text, (int(20), 20))
 
+        # push updates to display
         pygame.display.update()
 
     pygame.font.quit()
