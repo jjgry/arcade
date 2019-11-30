@@ -19,18 +19,18 @@ class Projectile:
     def draw(self, win):
         """ Add a projectile surface onto win, centred on its position """
         pygame.draw.rect(
-            win, 
-            Projectile.COLOR, 
-            (int(self.pos_x - self.WIDTH/2), 
-                int(self.pos_y - self.HEIGHT/2), 
-                self.WIDTH, 
+            win,
+            Projectile.COLOR,
+            (int(self.pos_x - self.WIDTH/2),
+                int(self.pos_y - self.HEIGHT/2),
+                self.WIDTH,
                 self.HEIGHT)
         )
 
     def update(self, projectiles, window_height):
         """ Called once for every frame to render """
         if self.direction == True:
-            self.pos_y - = self.VELOCITY
+            self.pos_y -= self.VELOCITY
         else:
             self.pos_y += self.VELOCITY
         self.remove_offscreen(projectiles, window_height)

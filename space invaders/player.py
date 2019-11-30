@@ -23,11 +23,11 @@ class Player:
         """ Add an entity surface onto win, centred on its position """
         if self.alive:
             pygame.draw.rect(
-                win, 
-                Player.COLOR, 
-                (int(self.pos_x - Player.WIDTH/2), 
-                    int(self.pos_y - Player.HEIGHT/2), 
-                    Player.WIDTH, 
+                win,
+                Player.COLOR,
+                (int(self.pos_x - Player.WIDTH/2),
+                    int(self.pos_y - Player.HEIGHT/2),
+                    Player.WIDTH,
                     Player.HEIGHT)
             )
 
@@ -49,7 +49,7 @@ class Player:
                     projectiles.remove(projectile)
                     hit = True
             if hit:
-                self.lives - = 1
+                self.lives -= 1
                 if self.lives <= 0:
                     self.alive = False
 
@@ -58,7 +58,7 @@ class Player:
         if self.alive:
             if ((keys[pygame.K_a] or keys[pygame.K_LEFT])
                     and (self.pos_x > Player.WIDTH)):
-                self.pos_x - = Player.VELOCITY
+                self.pos_x -= Player.VELOCITY
             if ((keys[pygame.K_d] or keys[pygame.K_RIGHT])
                     and (self.pos_x < window_width - Player.WIDTH)):
                 self.pos_x += Player.VELOCITY
@@ -72,4 +72,4 @@ class Player:
                     if potential_projectile is not None:
                         projectiles.append(potential_projectile)
             else:
-                self.count - = 1
+                self.count -= 1

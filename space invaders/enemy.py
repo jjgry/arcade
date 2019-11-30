@@ -22,11 +22,11 @@ class Enemy:
         """ Add an entity surface onto win, centred on its position """
         if self.alive:
             pygame.draw.rect(
-                win, 
-                Enemy.COLOR, 
-                (int(self.pos_x - Enemy.WIDTH/2), 
-                    int(self.pos_y - Enemy.HEIGHT/2), 
-                    Enemy.WIDTH, 
+                win,
+                Enemy.COLOR,
+                (int(self.pos_x - Enemy.WIDTH/2),
+                    int(self.pos_y - Enemy.HEIGHT/2),
+                    Enemy.WIDTH,
                     Enemy.HEIGHT)
             )
 
@@ -51,7 +51,7 @@ class Enemy:
             for proj in to_remove:
                 projectiles.remove(proj)
             if hit:
-                self.lives - = 1
+                self.lives -= 1
                 if self.lives <= 0:
                     self.alive = False
 
@@ -69,7 +69,7 @@ class Enemy:
                 if potential_projectile is not None:
                     projectiles.append(potential_projectile)
             else:
-                self.count - = 1
+                self.count -= 1
 
     @staticmethod
     def update_all(enemies, projectiles):

@@ -15,11 +15,11 @@ class Block:
         """ Add a block surface onto win, centred on its position """
         if self.alive:
             pygame.draw.rect(
-                win, 
-                Block.COLOR, 
-                (int(self.pos_x - Block.WIDTH/2), 
-                    int(self.pos_y - Block.HEIGHT/2), 
-                    Block.WIDTH, 
+                win,
+                Block.COLOR,
+                (int(self.pos_x - Block.WIDTH/2),
+                    int(self.pos_y - Block.HEIGHT/2),
+                    Block.WIDTH,
                     Block.HEIGHT)
             )
 
