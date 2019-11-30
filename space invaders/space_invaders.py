@@ -43,9 +43,16 @@ class SpaceInvaders:
         space_invaders.run()
 
     def get_enemies(self):
-        enemies = [
-            Enemy(250, 200),
-            Enemy(300, 200)]
+        enemies = []
+        dimensions = (8, 4)
+        spacing = 50
+        total_width = (dimensions[0] - 1) * spacing + Enemy.WIDTH
+        left_offset = (self.WINDOW_WIDTH - total_width) / 2
+        for x in range(dimensions[0]):
+            for y in range(dimensions[1]):
+                enemies.append(Enemy(
+                    spacing*x + left_offset,
+                    spacing*y + 100))
         return enemies
 
     def get_blocks(self):

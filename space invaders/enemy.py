@@ -1,4 +1,5 @@
 import pygame
+import math
 import random
 from projectile import Projectile
 
@@ -8,15 +9,19 @@ class Enemy:
     HEIGHT = 20
     LIVES = 1
     COLOR = (255, 255, 255)
-    DELAY_BETWEEN_SHOTS = 400
+    DELAY_BETWEEN_SHOTS = 800
+    MAX_DISPLACEMENT = 50
+    MAX_PHASE = 800  # larger value leads to slower oscillation
 
     def __init__(self, pos_x, pos_y):
         """ Enemies are entities with one life """
         self.alive = True
         self.pos_x = pos_x
+        self.original_pos_x = pos_x
         self.pos_y = pos_y
         self.count = int(Enemy.DELAY_BETWEEN_SHOTS * random.random())
         self.lives = Enemy.LIVES
+        self.phase = 0
 
     def draw(self, win):
         """ Add an entity surface onto win, centred on its position """
@@ -55,6 +60,17 @@ class Enemy:
                 if self.lives <= 0:
                     self.alive = False
 
+    def oscillate(self):
+        """ updates the phase of the enemy and then updates the position
+        based on the new phase
+        """
+        if self.phase == Enemy.MAX_PHASE:
+            self.phase = 0
+        else:
+            self.phase += 1
+        self.pos_x = self.original_pos_x + int(
+            Enemy.MAX_DISPLACEMENT * math.sin(2 * math.pi * (self.phase / Enemy.MAX_PHASE)))
+
     def update(self, projectiles):
         """ defines what the player entity does every frame 
 
@@ -70,6 +86,8 @@ class Enemy:
                     projectiles.append(potential_projectile)
             else:
                 self.count -= 1
+
+            self.oscillate()
 
     @staticmethod
     def update_all(enemies, projectiles):
