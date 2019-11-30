@@ -4,12 +4,13 @@ from projectile import Projectile
 
 
 class Player:
-    WIDTH = 20
-    HEIGHT = 20
+    WIDTH = 30
+    HEIGHT = 30
     VELOCITY = 3
     LIVES = 3
-    COLOR = (255, 255, 255)
+    COLOR = (63, 68, 16)
     DELAY_BETWEEN_SHOTS = 40
+    PROJ_VELOCITY = 4
 
     def __init__(self, pos_x, pos_y):
         """ Players are entities with three lives """
@@ -30,10 +31,6 @@ class Player:
                     Player.WIDTH,
                     Player.HEIGHT)
             )
-
-    def fire_projectile(self):
-        """ return a Projectile object travelling upwards """
-        return Projectile(self.pos_x, self.pos_y, True)
 
     def check_if_hit(self, projectiles):
         """ Player can only be hit by a Projectile object travelling downwards.
@@ -68,8 +65,8 @@ class Player:
             if self.count == 0:
                 if (keys[pygame.K_SPACE]):
                     self.count = Player.DELAY_BETWEEN_SHOTS
-                    potential_projectile = self.fire_projectile()
-                    if potential_projectile is not None:
-                        projectiles.append(potential_projectile)
+                    # fire a projectile firing upwards
+                    projectiles.append(Projectile(
+                        self.pos_x, self.pos_y, True, Player.PROJ_VELOCITY))
             else:
                 self.count -= 1
