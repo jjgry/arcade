@@ -26,7 +26,7 @@ class Projectile:
         )
 
     def update(self, projectiles, window_height):
-        """ Called once for every frame to render """
+        """ Defines what a projectile does every frame """
         if self.direction == True:
             self.pos_y -= self.velocity
         else:

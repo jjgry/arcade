@@ -20,6 +20,10 @@ class SpaceInvaders:
         space_invaders.run()
 
     def run(self):
+        """ This is the top-level code for space invaders. We initialise 
+        pygame and then stay in the loop until the red cross on the window
+        is clicked.
+        """
         pygame.init()
         win = pygame.display.set_mode((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
         pygame.display.set_caption("Space Invaders")

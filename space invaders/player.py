@@ -51,7 +51,7 @@ class Player:
                     self.alive = False
 
     def update(self, keys, window_width, projectiles):
-        """ defines what the player entity does every frame """
+        """ Defines what the player entity does every frame """
         if self.alive:
             if ((keys[pygame.K_a] or keys[pygame.K_LEFT])
                     and (self.pos_x > Player.WIDTH)):

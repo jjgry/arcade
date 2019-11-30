@@ -40,16 +40,16 @@ class Block:
             projectiles.remove(projectile)
 
     def update(self, projectiles):
-        """ defines what the block entity does every frame """
-        if self.alive:
-            self.check_if_hit(projectiles)
+        """ Defines what the block entity does every frame """
+        self.check_if_hit(projectiles)
 
     @staticmethod
     def update_all(blocks, projectiles):
         to_remove = []
         for block in blocks:
-            block.update(projectiles)
-            if not block.alive:
+            if block.alive:
+                block.update(projectiles)
+            else:
                 to_remove.append(block)
         for block in to_remove:
             blocks.remove(block)

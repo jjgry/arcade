@@ -73,7 +73,7 @@ class Enemy:
             now_can_fire.can_fire = True
 
     def oscillate(self):
-        """ updates the phase of the enemy and then updates the position
+        """ Updates the phase of the enemy and then updates the position
         based on the new phase
         """
         if self.phase == Enemy.MAX_PHASE:
@@ -84,7 +84,7 @@ class Enemy:
             Enemy.MAX_DISPLACEMENT * math.sin(2 * math.pi * (self.phase / Enemy.MAX_PHASE)))
 
     def update(self, enemies, projectiles):
-        """ defines what an enemy entity does every frame """
+        """ Defines what an enemy entity does every frame """
         self.check_if_hit(enemies, projectiles)
         if self.can_fire:
             if self.count == 0:
@@ -98,6 +98,7 @@ class Enemy:
 
     @staticmethod
     def find_index(enemies, enemy):
+        """ Static method to find the index of enemy within enemies """
         for i, column in enumerate(enemies):
             if enemy in column:
                 return (i, column.index(enemy))

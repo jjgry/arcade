@@ -74,6 +74,9 @@ class Wave:
         return enemies
 
     def get_blocks(self):
+        """ Return a list of blocks to be displayed. These blocks are arranged
+        into multiple defences.
+        """
         blocks = []
         total_width = (self.DEFENCE_NUM - 1) * self.DEFENCE_SPACING + \
             len(self.DEFENCE_STRUCTURE[0]) * Block.WIDTH
