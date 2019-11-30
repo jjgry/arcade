@@ -2,10 +2,11 @@ import pygame
 from projectile import Projectile
 # from living_entity import LivingEntity
 
+
 class Player:
     HEIGHT = 20
     WIDTH = 20
-    VELOCITY = 5
+    VELOCITY = 3
     LIVES = 3
     COLOR = (255, 255, 255)
 
@@ -17,16 +18,16 @@ class Player:
         self.delay_between_shots = delay_between_shots
         self.count = 0
         self.lives = Player.LIVES
-    
+
     def draw(self, win):
         """ Add an entity surface onto win, centred on its position """
         if self.alive:
             pygame.draw.rect(
-                win, 
+                win,
                 Player.COLOR,
-                (int(self.pos_x - Player.WIDTH/2), 
-                    int(self.pos_y - Player.HEIGHT/2), 
-                    Player.WIDTH, 
+                (int(self.pos_x - Player.WIDTH/2),
+                    int(self.pos_y - Player.HEIGHT/2),
+                    Player.WIDTH,
                     Player.HEIGHT)
             )
 
@@ -38,15 +39,13 @@ class Player:
         """ Player can only be hit by a Projectile object travelling downwards.
         If the player is hit by a projectile(s), the projectile(s) is/are
         removed.
-
-        Returns true if the player is hit.
         """
         hit = False
-        if self.alive: # only check for collisions if entity is still alive
+        if self.alive:  # only check for collisions if entity is still alive
 
             for projectile in projectiles:
-                if ((self.pos_x - 10 <= projectile.pos_x <= self.pos_x + self.WIDTH + 10)
-                        and (self.pos_y - 10 <= projectile.pos_y <= self.pos_y + self.HEIGHT + 10)
+                if ((self.pos_x - Player.WIDTH/2 <= projectile.pos_x <= self.pos_x + Player.WIDTH/2)
+                        and (self.pos_y - Player.HEIGHT/2 <= projectile.pos_y <= self.pos_y + Player.HEIGHT/2)
                         and (projectile.direction == False)):
                     projectiles.remove(projectile)
                     hit = True
@@ -55,18 +54,14 @@ class Player:
                 self.lives -= 1
                 if self.lives <= 0:
                     self.alive = False
-        return hit
 
-    def move(self, keys, window_width, projectiles):
-        """ defines what the player entity does every frame 
-
-        returns an updated list of projectiles in the window
-        """
+    def update(self, keys, window_width, projectiles):
+        """ defines what the player entity does every frame """
         if self.alive:
-            if ((keys[pygame.K_a] or keys[pygame.K_LEFT]) 
+            if ((keys[pygame.K_a] or keys[pygame.K_LEFT])
                     and (self.pos_x > self.WIDTH)):
                 self.pos_x -= Player.VELOCITY
-            if ((keys[pygame.K_d] or keys[pygame.K_RIGHT]) 
+            if ((keys[pygame.K_d] or keys[pygame.K_RIGHT])
                     and (self.pos_x < window_width - self.WIDTH)):
                 self.pos_x += Player.VELOCITY
 
@@ -79,4 +74,4 @@ class Player:
                     if potential_projectile is not None:
                         projectiles.append(potential_projectile)
             else:
-                self.count -= 1 
+                self.count -= 1
