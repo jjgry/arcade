@@ -26,3 +26,16 @@ class Projectile:
         """ Called once for every frame to render """
         if self.direction == True:
             self.pos_y -= Projectile.VELOCITY
+        else:
+            self.pos_y += Projectile.VELOCITY
+
+    @staticmethod
+    def remove_offscreen(projectiles, window_width, window_height):
+        for projectile in projectiles:
+            if ((projectile.pos_y < 0) or (projectile.pos_y > window_height)):
+                projectiles.remove(projectile)
+
+    @staticmethod
+    def move_all(projectiles):
+        for projectile in projectiles:
+            projectile.move()

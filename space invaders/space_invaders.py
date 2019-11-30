@@ -6,6 +6,7 @@ from projectile import Projectile
 WINDOW_WIDTH = 500
 WINDOW_HEIGHT = 500
 DELAY_BETWEEN_PLAYER_SHOTS = 30
+DELAY_BETWEEN_ENEMY_SHOTS = 200
 
 def main():
     pygame.init()
@@ -13,7 +14,7 @@ def main():
     pygame.display.set_caption("Space Invaders") 
 
     player = Player(250, 450, DELAY_BETWEEN_PLAYER_SHOTS)
-    enemy = Enemy(250, 200, 200)
+    enemy = Enemy(250, 200, DELAY_BETWEEN_ENEMY_SHOTS)
     projectiles = []
 
     run = True
@@ -30,9 +31,8 @@ def main():
         player.move(keys, WINDOW_WIDTH, projectiles)
         enemy.move(keys, WINDOW_WIDTH, projectiles)
         
-        for projectile in projectiles:
-            projectile.move()
-
+        Projectile.remove_offscreen(projectiles, WINDOW_WIDTH, WINDOW_HEIGHT)
+        Projectile.move_all(projectiles)
 
         # draw everything
         win.fill((0, 0, 0))
@@ -43,10 +43,9 @@ def main():
         for projectile in projectiles:
             projectile.draw(win)
 
-
         pygame.display.update()
 
     pygame.quit()
 
 if __name__ == "__main__":
-    main() 
+    main()
