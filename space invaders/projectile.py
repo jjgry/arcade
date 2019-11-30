@@ -2,19 +2,17 @@ import pygame
 
 
 class Projectile:
-    WIDTH = 2
+    WIDTH = 5
     HEIGHT = 20
-    COLOR = (255, 255, 255)
-    VELOCITY = 3
+    COLOR = (145, 145, 145)
+    DAMAGE = 2
 
-    def __init__(self, pos_x, pos_y, up: 'boolean'):
+    def __init__(self, pos_x, pos_y, up: 'boolean', velocity):
         self.pos_x = pos_x
         self.pos_y = pos_y
-        # self.WIDTH = width
-        # self.HEIGHT = height
-        # self.COLOR = color
-        # self.VELOCITY = velocity
+        self.velocity = velocity
         self.direction = up
+        self.damage = self.DAMAGE
 
     def draw(self, win):
         """ Add a projectile surface onto win, centred on its position """
@@ -30,9 +28,9 @@ class Projectile:
     def update(self, projectiles, window_height):
         """ Called once for every frame to render """
         if self.direction == True:
-            self.pos_y -= self.VELOCITY
+            self.pos_y -= self.velocity
         else:
-            self.pos_y += self.VELOCITY
+            self.pos_y += self.velocity
         self.remove_offscreen(projectiles, window_height)
 
     def remove_offscreen(self, projectiles, window_height):
