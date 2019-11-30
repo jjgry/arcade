@@ -6,6 +6,8 @@ This is my attempt to become more familiar with Python 3. I have been using pyga
 
 My ultimate goal is to combine the individual games I have constructed here into an arcade machine with multiple games that a user can select between. Improved graphics and instructional menus would be a part of this.
 
+N.B. the choppy look of the GIF's below is purely a consequence of the file format limitations. In reality these programs run at ~80fps.
+
 ## pong
 
 My version of Pong (trademark held by [Atari Interactive Inc.](https://www.atari.com/)) currently consists of one `pong.py` module which can be executed to run the game. The game is designed for two players. Player 1 can operate their paddle using the `W` and `S` keys, whilst player 2 can do so with the `UP ARROW` and `DOWN ARROW` keys.
