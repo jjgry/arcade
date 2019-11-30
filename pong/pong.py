@@ -6,7 +6,8 @@ def main():
     win = pygame.display.set_mode((500, 500))
     pygame.display.set_caption("Pong") 
 
-    font = pygame.font.SysFont("Courier New Bold", 60)
+    pygame.font.init()
+    font = pygame.font.Font(pygame.font.get_default_font(), 60)
 
     p1_pos = 250
     p2_pos = 250
@@ -118,6 +119,7 @@ def main():
 
         pygame.display.update()
         
+    pygame.font.quit()
     pygame.quit()
 
 
