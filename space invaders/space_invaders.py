@@ -48,10 +48,19 @@ class SpaceInvaders:
 
             # draw everything
             win.fill((0, 0, 0))
-            wave.draw(win)
-            lives_text = font.render(
-                "Lives: " + str(wave.player.lives), True, (255, 255, 255))
-            win.blit(lives_text, (int(20), 20))
+            if wave.player.lives > 0:
+                wave.draw(win)
+                lives_text = font.render(
+                    "Lives: " + str(wave.player.lives), True, (255, 255, 255))
+                win.blit(lives_text, (int(20), 20))
+            else:
+                lose_text = font.render("You Lose", True, (255, 0, 0))
+                lose_text = pygame.transform.scale2x(lose_text)
+                win.blit(
+                    lose_text,
+                    (int((self.WINDOW_WIDTH - lose_text.get_width()) / 2),
+                        int((self.WINDOW_HEIGHT - lose_text.get_height()) / 2))
+                )
 
             # push updates to display
             pygame.display.update()
