@@ -5,30 +5,29 @@ from projectile import Projectile
 
 
 class Enemy:
-    HEIGHT = 20
-    WIDTH = 20
-    LIVES = 1
-    COLOR = (255, 255, 255)
 
-    def __init__(self, pos_x, pos_y, delay_between_shots):
+    def __init__(self, pos_x, pos_y, width, height, lives, color, delay_between_shots):
         """ Enemies are entities with one life """
         self.alive = True
         self.pos_x = pos_x
         self.pos_y = pos_y
-        self.delay_between_shots = delay_between_shots
+        self.WIDTH = width
+        self.HEIGHT = height
+        self.lives = lives
+        self.COLOR = color
+        self.DELAY_BETWEEN_SHOTS = delay_between_shots
         self.count = int(delay_between_shots * random.random())
-        self.lives = Enemy.LIVES
 
     def draw(self, win):
         """ Add an entity surface onto win, centred on its position """
         if self.alive:
             pygame.draw.rect(
                 win,
-                Enemy.COLOR,
-                (int(self.pos_x - Enemy.WIDTH/2),
-                    int(self.pos_y - Enemy.HEIGHT/2),
-                    Enemy.WIDTH,
-                    Enemy.HEIGHT)
+                self.COLOR,
+                (int(self.pos_x - self.WIDTH/2),
+                    int(self.pos_y - self.HEIGHT/2),
+                    self.WIDTH,
+                    self.HEIGHT)
             )
 
     def fire_projectile(self):
@@ -44,8 +43,8 @@ class Enemy:
         if self.alive:  # only check for collisions if entity is still alive
             to_remove = []
             for projectile in projectiles:
-                if ((self.pos_x - Enemy.WIDTH/2 <= projectile.pos_x <= self.pos_x + Enemy.WIDTH/2)
-                        and (self.pos_y - Enemy.HEIGHT/2 <= projectile.pos_y <= self.pos_y + Enemy.HEIGHT/2)
+                if ((self.pos_x - self.WIDTH/2 <= projectile.pos_x <= self.pos_x + self.WIDTH/2)
+                        and (self.pos_y - self.HEIGHT/2 <= projectile.pos_y <= self.pos_y + self.HEIGHT/2)
                         and (projectile.direction == True)):
                     to_remove.append(projectile)
                     hit = True
@@ -65,7 +64,7 @@ class Enemy:
             self.check_if_hit(projectiles)
 
             if self.count == 0:
-                self.count = self.delay_between_shots
+                self.count = self.DELAY_BETWEEN_SHOTS
                 potential_projectile = self.fire_projectile()
                 if potential_projectile is not None:
                     projectiles.append(potential_projectile)
