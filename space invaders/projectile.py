@@ -36,6 +36,9 @@ class Projectile:
         self.remove_offscreen(projectiles, window_height)
 
     def remove_offscreen(self, projectiles, window_height):
+        """ Check if the projectile is still on screen. Remove it from
+        projectiles if it is not
+        """
         if ((self.pos_y < 0) or (self.pos_y > window_height)):
             projectiles.remove(self)
 

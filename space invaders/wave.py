@@ -19,12 +19,14 @@ class Wave:
         self.WINDOW_HEIGHT = WINDOW_HEIGHT
 
     def update(self, keys):
+        """ Update all objects in the wave """
         Block.update_all(self.blocks, self.projectiles)
         Enemy.update_all(self.enemies, self.projectiles)
         self.player.update(keys, self.WINDOW_WIDTH, self.projectiles)
         Projectile.update_all(self.projectiles, self.WINDOW_HEIGHT)
 
     def draw(self, win):
+        """ Draw all objects in the wave to win """
         Block.draw_all(win, self.blocks)
         Enemy.draw_all(win, self.enemies)
         self.player.draw(win)
