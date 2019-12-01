@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 
 
 class Pong:
@@ -20,7 +21,7 @@ class Pong:
         self.p2_score = 0
 
         self.ball_pos = (250, 250)
-        self.ball_vx = - Pong.BALL_SPEED
+        self.ball_vx = random.choice([1, -1]) * Pong.BALL_SPEED / 2
         self.ball_vy = 0
 
     @staticmethod
@@ -56,7 +57,8 @@ class Pong:
                 self.p2_pos += self.PLAYER_VEL
 
             self.ball_pos = (
-                self.ball_pos[0] + self.ball_vx, self.ball_pos[1] + self.ball_vy)
+                self.ball_pos[0] + self.ball_vx, 
+                self.ball_pos[1] + self.ball_vy)
 
             # ball bounces off top or bottom of screen
             if (self.ball_pos[1] <= 0) or (self.ball_pos[1] >= 499):
@@ -86,12 +88,12 @@ class Pong:
             # if ball off screen reset and update score
             if (self.ball_pos[0] <= 0):
                 self.ball_pos = (250, 250)
-                self.ball_vx *= -1
+                self.ball_vx = self.BALL_SPEED / 2
                 self.ball_vy = 0
                 self.p2_score += 1
             elif (self.ball_pos[0] >= 499):
                 self.ball_pos = (250, 250)
-                self.ball_vx *= -1
+                self.ball_vx = -self.BALL_SPEED / 2
                 self.ball_vy = 0
                 self.p1_score += 1
 
