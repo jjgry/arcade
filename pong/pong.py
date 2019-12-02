@@ -14,6 +14,10 @@ class Pong:
     BALL_SPEED = 3
 
     def __init__(self):
+        """ This is the top-level code for pong. We initialise 
+        pygame and then stay in the loop until the red cross on the window
+        is clicked.
+        """
         self.p1_pos = 250
         self.p2_pos = 250
 
@@ -24,12 +28,6 @@ class Pong:
         self.ball_vx = random.choice([1, -1]) * Pong.BALL_SPEED / 2
         self.ball_vy = 0
 
-    @staticmethod
-    def start():
-        pong = Pong()
-        pong.run()
-
-    def run(self):
         pygame.init()
         win = pygame.display.set_mode((500, 500))
         pygame.display.set_caption("Pong")
@@ -136,7 +134,3 @@ class Pong:
 
         pygame.font.quit()
         pygame.quit()
-
-
-if __name__ == "__main__":
-    Pong.start()

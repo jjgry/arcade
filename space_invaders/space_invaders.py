@@ -12,14 +12,6 @@ class SpaceInvaders:
     WINDOW_HEIGHT = 500
 
     def __init__(self):
-        pass
-
-    @staticmethod
-    def start():
-        space_invaders = SpaceInvaders()
-        space_invaders.run()
-
-    def run(self):
         """ This is the top-level code for space invaders. We initialise 
         pygame and then stay in the loop until the red cross on the window
         is clicked.
@@ -67,7 +59,3 @@ class SpaceInvaders:
 
         pygame.font.quit()
         pygame.quit()
-
-
-if __name__ == "__main__":
-    SpaceInvaders.start()
