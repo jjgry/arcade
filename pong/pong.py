@@ -1,9 +1,13 @@
 import pygame
 import math
 import random
+from helper_code import scale
 
 
 class Pong:
+    GAME_WIDTH = 500
+    GAME_HEIGHT = 500
+
     PLAYER_WIDTH = 10
     PLAYER_HEIGHT = 40
     PLAYER_VEL = 4
@@ -13,10 +17,9 @@ class Pong:
     BALL_SIZE = 10
     BALL_SPEED = 3
 
-    def __init__(self):
-        """ This is the top-level code for pong. We initialise 
-        pygame and then stay in the loop until the red cross on the window
-        is clicked.
+    def __init__(self, win):
+        """ This is the top-level code for pong. We are passed a window to
+        draw into and do so continually until the user exits.
         """
         self.p1_pos = 250
         self.p2_pos = 250
@@ -28,9 +31,8 @@ class Pong:
         self.ball_vx = random.choice([1, -1]) * Pong.BALL_SPEED / 2
         self.ball_vy = 0
 
-        pygame.init()
-        win = pygame.display.set_mode((500, 500))
         pygame.display.set_caption("Pong")
+        game_surface = pygame.Surface((self.GAME_WIDTH, self.GAME_HEIGHT))
 
         pygame.font.init()
         font = pygame.font.Font(pygame.font.get_default_font(), 60)
@@ -42,6 +44,11 @@ class Pong:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
+                elif event.type == pygame.VIDEORESIZE:
+                    win = pygame.display.set_mode(
+                        (event.w, event.h), pygame.RESIZABLE)
+                    self.window_width = event.w
+                    self.window_height = event.h
 
             keys = pygame.key.get_pressed()
 
@@ -96,20 +103,20 @@ class Pong:
                 self.p1_score += 1
 
             # draw screen
-            win.fill((0, 0, 0))
+            game_surface.fill((0, 0, 0))
             dashes = 25
             dash_length = (500//dashes)
 
             for i in range(dashes):
                 pygame.draw.line(
-                    win,
+                    game_surface,
                     (255, 255, 255),
                     (250, i*(dash_length) + 10),
                     (250, i*(dash_length) + dash_length//2 + 10),
                     2)
 
             pygame.draw.rect(
-                win,
+                game_surface,
                 (255, 255, 255),
                 (int(self.ball_pos[0] - Pong.BALL_SIZE/2),
                     int(self.ball_pos[1] - Pong.BALL_SIZE/2),
@@ -117,18 +124,24 @@ class Pong:
                     Pong.BALL_SIZE)
             )
             pygame.draw.rect(
-                win,
+                game_surface,
                 (255, 255, 255),
                 (30, self.p1_pos, Pong.PLAYER_WIDTH, Pong.PLAYER_HEIGHT))
             pygame.draw.rect(
-                win,
+                game_surface,
                 (255, 255, 255),
                 (460, self.p2_pos, Pong.PLAYER_WIDTH, Pong.PLAYER_HEIGHT))
 
             p1_text = font.render(str(self.p1_score), True, (255, 255, 255))
             p2_text = font.render(str(self.p2_score), True, (255, 255, 255))
-            win.blit(p1_text, (int(200 - p1_text.get_rect().width/2), 20))
-            win.blit(p2_text, (int(300 - p2_text.get_rect().width/2), 20))
+            game_surface.blit(p1_text, (int(200 - p1_text.get_rect().width/2), 20))
+            game_surface.blit(p2_text, (int(300 - p2_text.get_rect().width/2), 20))
+
+            scale(
+                win,
+                game_surface,
+                (self.GAME_WIDTH, self.GAME_HEIGHT),
+                (self.window_width, self.window_height))
 
             pygame.display.update()
 

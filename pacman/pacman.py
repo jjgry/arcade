@@ -7,16 +7,10 @@ class Pacman:
     GAME_WIDTH = 224
     GAME_HEIGHT = 288
 
-    def __init__(self):
-        """ This is the top-level code for pacman. We initialise 
-        pygame and then stay in the loop until the red cross on the window
-        is clicked.
+    def __init__(self, win):
+        """ This is the top-level code for pacman. We are passed a window to
+        draw into and do so continually until the user exits.
         """
-        # window_size = pygame.display.get_window_size()
-        # self.WINDOW_WIDTH = win
-        pygame.init()
-        win = pygame.display.set_mode(
-            (self.GAME_WIDTH, self.GAME_HEIGHT), pygame.RESIZABLE)
         pygame.display.set_caption("Pacman")
 
         game_surface = pygame.Surface((self.GAME_WIDTH, self.GAME_HEIGHT))
