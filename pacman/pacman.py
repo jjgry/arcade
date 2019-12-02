@@ -1,7 +1,8 @@
 import pygame
 
+
 class Pacman:
-    
+
     GAME_WIDTH = 224
     GAME_HEIGHT = 288
 
@@ -19,12 +20,20 @@ class Pacman:
                     run = False
 
             win.fill((0, 0, 0))
-            pygame.draw.rect(win, (255, 255, 255), (3, 3, self.GAME_WIDTH - 6, self.GAME_HEIGHT - 6))
+            pygame.draw.rect(
+                win,
+                (255, 255, 255),
+                (3, 3, self.GAME_WIDTH - 6, self.GAME_HEIGHT - 6))
             pygame.display.update()
 
-
-
         pygame.quit()
+    
+
+    @staticmethod
+    def start():
+        Pacman()
+
+
 
 if __name__ == "__main__":
-    Pacman()
+    Pacman.start()
