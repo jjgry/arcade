@@ -1,7 +1,7 @@
 import pygame
 import math
 import random
-from projectile import Projectile
+from space_invaders.projectile import Projectile
 
 
 class Enemy:

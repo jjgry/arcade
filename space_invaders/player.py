@@ -1,5 +1,5 @@
 import pygame
-from projectile import Projectile
+from space_invaders.projectile import Projectile
 # from living_entity import LivingEntity
 
 

@@ -1,8 +1,8 @@
 import pygame
-from block import Block
-from enemy import Enemy
-from player import Player
-from projectile import Projectile
+from space_invaders.block import Block
+from space_invaders.enemy import Enemy
+from space_invaders.player import Player
+from space_invaders.projectile import Projectile
 
 
 class Wave:

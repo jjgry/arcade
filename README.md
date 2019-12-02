@@ -21,7 +21,7 @@ My version of Pong (trademark held by [Atari Interactive Inc.](https://www.atari
 My version of Space Invaders (copyright held by [Taito Corporation](http://www.taito.com/)) is made using multiple modules and classes. The main module is `space_invaders.py` which can be executed to run the game. The player can move using the `A` and `D` keys or using the `LEFT ARROW` and `RIGHT ARROW` keys, and shoot using the `SPACE` bar.
 
 <p align="center">
-  <img width="300" height="300" src="/space invaders/space_invaders_demo.gif">
+  <img width="300" height="300" src="/space_invaders/space_invaders_demo.gif">
 </p>
 
 In the future I would like to implement a scoreboard, as well as the aliens progressively moving down the screen.
