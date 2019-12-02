@@ -2,7 +2,7 @@ import pygame
 
 
 def scale(new_surface, old_surface, old_size, new_size):
-    """ Scale a surface onto another without distortion with letterboxing"""
+    """ Scale a surface onto another without stretching (with letterboxing) """
     x_scale = new_size[0] / old_size[0]
     y_scale = new_size[1] / old_size[1]
 
@@ -11,10 +11,10 @@ def scale(new_surface, old_surface, old_size, new_size):
     if x_scale < y_scale:
         scale_factor = x_scale
         x_offset = 0
-        y_offset = 0
+        y_offset = (new_size[1] - scale_factor * old_size[1]) / 2
     else:
         scale_factor = y_scale
-        x_offset = 0
+        x_offset = (new_size[0] - scale_factor * old_size[0]) / 2
         y_offset = 0
 
     new_surface.fill((0, 0, 0))
