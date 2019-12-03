@@ -24,17 +24,16 @@ class Enemy:
         self.count = int(Enemy.DELAY_BETWEEN_SHOTS * random.random())
         self.lives = Enemy.LIVES
         self.phase = 0
+        self.img = pygame.image.load('space_invaders\enemy1.png')
 
     def draw(self, win):
-        """ Add an entity surface onto win, centred on its position """
-        pygame.draw.rect(
-            win,
-            self.COLOR,
+        """ Add an image onto win, centred on its position and scaled to
+        the size of the enemy """
+        win.blit(pygame.transform.scale(
+            self.img,
+            (Enemy.WIDTH, Enemy.HEIGHT)),
             (int(self.pos_x - Enemy.WIDTH/2),
-                int(self.pos_y - Enemy.HEIGHT/2),
-                Enemy.WIDTH,
-                Enemy.HEIGHT)
-        )
+                int(self.pos_y - Enemy.HEIGHT/2)))
 
     def check_if_hit(self, enemies, projectiles):
         """ Enemy can only be hit by a Projectile object travelling upwards.

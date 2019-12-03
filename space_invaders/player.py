@@ -19,18 +19,18 @@ class Player:
         self.pos_y = pos_y
         self.lives = Player.LIVES
         self.count = 0
+        self.img = pygame.image.load('space_invaders\player.png')
 
     def draw(self, win):
-        """ Add an entity surface onto win, centred on its position """
+        """ Add an image onto win, centred on its position and scaled to
+        the size of the player
+        """
         if self.alive:
-            pygame.draw.rect(
-                win,
-                Player.COLOR,
+            win.blit(pygame.transform.scale(
+                self.img,
+                (Player.WIDTH, Player.HEIGHT)),
                 (int(self.pos_x - Player.WIDTH/2),
-                    int(self.pos_y - Player.HEIGHT/2),
-                    Player.WIDTH,
-                    Player.HEIGHT)
-            )
+                    int(self.pos_y - Player.HEIGHT/2)))
 
     def check_if_hit(self, projectiles):
         """ Player can only be hit by a Projectile object travelling downwards.
