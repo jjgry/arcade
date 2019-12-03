@@ -1,5 +1,6 @@
 import pygame
 
+pygame.init()
 
 def scale(new_surface, old_surface, old_size, new_size):
     """ Scale a surface onto another without stretching (with letterboxing) """

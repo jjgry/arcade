@@ -12,12 +12,16 @@ class SpaceInvaders:
     GAME_WIDTH = 500
     GAME_HEIGHT = 500
 
+    FPS = 120
+
     def __init__(self, win):
         """ This is the top-level code for space invaders. We are passed a 
         window to draw into and do so continually until the user exits.
         """
+        pygame.init()
         pygame.display.set_caption("Space Invaders")
         game_surface = pygame.Surface((self.GAME_WIDTH, self.GAME_HEIGHT))
+        clock = pygame.time.Clock()
 
         pygame.font.init()
         font = pygame.font.Font(pygame.font.get_default_font(), 20)
@@ -26,7 +30,8 @@ class SpaceInvaders:
 
         run = True
         while run:
-            pygame.time.delay(10)  # pause for some number of ms
+            # pygame.time.delay(10)  # pause for some number of ms
+            clock.tick(self.FPS)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -48,11 +53,11 @@ class SpaceInvaders:
                 wave.draw(game_surface)
                 lives_text = font.render(
                     "Lives: " + str(wave.player.lives), True, (255, 255, 255))
-                win.blit(lives_text, (int(20), 20))
+                game_surface.blit(lives_text, (int(20), 20))
             else:
                 lose_text = font.render("You Lose", True, (255, 0, 0))
                 lose_text = pygame.transform.scale2x(lose_text)
-                win.blit(
+                game_surface.blit(
                     lose_text,
                     (int((self.GAME_WIDTH - lose_text.get_width()) / 2),
                         int((self.GAME_HEIGHT - lose_text.get_height()) / 2))

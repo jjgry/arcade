@@ -8,6 +8,8 @@ class Pong:
     GAME_WIDTH = 500
     GAME_HEIGHT = 500
 
+    FPS = 120
+
     PLAYER_WIDTH = 10
     PLAYER_HEIGHT = 40
     PLAYER_VEL = 4
@@ -31,15 +33,18 @@ class Pong:
         self.ball_vx = random.choice([1, -1]) * Pong.BALL_SPEED / 2
         self.ball_vy = 0
 
+        pygame.init()
         pygame.display.set_caption("Pong")
         game_surface = pygame.Surface((self.GAME_WIDTH, self.GAME_HEIGHT))
+        clock = pygame.time.Clock()
 
         pygame.font.init()
         font = pygame.font.Font(pygame.font.get_default_font(), 60)
 
         run = True
         while run:
-            pygame.time.delay(10)  # pause for 10ms (~100fps)
+            # pygame.time.delay(10)  # pause for 10ms (~100fps)
+            clock.tick(self.FPS)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

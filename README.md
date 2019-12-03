@@ -36,6 +36,5 @@ I have started but there is no real functionality yet.
 
 ## notes
 
-* The choppy look of the GIF's below is purely a consequence of the file format limitations. In reality these programs run at ~80fps with the current delays, with the ability to run much faster.
-* This project is very much a work in progress, and as much as I try to update this document to reflect the changes I am making, it is not always consistent with the code. 
-* Yes, I am not doing framerates properly (yet!)
+* The choppy look of the GIF's below is purely a consequence of the file format limitations. In reality these programs run at 120fps, with the ability to run much faster if it were so desired.
+* This project is very much a work in progress, and as much as I try to update this document to reflect the changes I am making, it is not always consistent with the code.

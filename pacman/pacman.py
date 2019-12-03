@@ -7,17 +7,20 @@ class Pacman:
     GAME_WIDTH = 224
     GAME_HEIGHT = 288
 
+    FPS = 120
+
     def __init__(self, win):
         """ This is the top-level code for pacman. We are passed a window to
         draw into and do so continually until the user exits.
         """
+        pygame.init()
         pygame.display.set_caption("Pacman")
-
         game_surface = pygame.Surface((self.GAME_WIDTH, self.GAME_HEIGHT))
+        clock = pygame.time.Clock()
 
         run = True
         while run:
-            pygame.time.delay(10)
+            clock.tick(self.FPS)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
