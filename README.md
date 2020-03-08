@@ -30,6 +30,10 @@ My version of Space Invaders (copyright held by [Taito Corporation](http://www.t
 
 In the future I would like to implement a scoreboard, as well as the aliens progressively moving down the screen.
 
+### game of life
+
+My implementation of the Game of Life is made to be intuitive. The main module is `game_of_life.py` which contains the class `GameOfLife` which can be instantiated to begin the game. The user will be able to click cells to toggle their alive/dead state as well as play and pause execution with the `SPACE` key. the `LEFT ARROW` and `RIGHT ARROW` keys will move one time slice forwards and backwards in time.
+
 ### pacman
 
 I have started but there is no real functionality yet.
