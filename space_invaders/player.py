@@ -19,7 +19,7 @@ class Player:
         self.pos_y = pos_y
         self.lives = Player.LIVES
         self.count = 0
-        self.img = pygame.image.load('space_invaders\player.png')
+        self.img = pygame.image.load('space_invaders\images\player.png')
 
     def draw(self, win):
         """ Add an image onto win, centred on its position and scaled to

@@ -24,7 +24,7 @@ class Enemy:
         self.count = int(Enemy.DELAY_BETWEEN_SHOTS * random.random())
         self.lives = Enemy.LIVES
         self.phase = 0
-        self.img = pygame.image.load('space_invaders\enemy1.png')
+        self.img = pygame.image.load('space_invaders\images\enemy1.png')
 
     def draw(self, win):
         """ Add an image onto win, centred on its position and scaled to
